@@ -19,7 +19,7 @@ export class AuthService {
     });
   }
 
-  get isSignedIn(): Observable<boolean> {
+  get isSignedInStream(): Observable<boolean> {
     return this.afAuth.map<FirebaseAuthState, boolean>((authState: FirebaseAuthState) => {
       return authState != null;
     });
