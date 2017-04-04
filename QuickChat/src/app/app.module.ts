@@ -1,3 +1,4 @@
+import { AuthGuardService } from './services/auth-guard.service';
 import { AuthService } from './services/auth.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -31,7 +32,7 @@ import { SigninComponent } from './+signin/signin.component';
     AngularFireModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
   ],
-  providers: [AuthService],
+  providers: [AuthService, AuthGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

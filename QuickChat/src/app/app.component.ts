@@ -1,3 +1,4 @@
+import { AuthService } from './services/auth.service';
 import { Component } from '@angular/core';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
 
@@ -7,5 +8,7 @@ import { AngularFire, FirebaseListObservable } from 'angularfire2';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app works!';
+  constructor(public authService: AuthService) {
+    
+  }
 }

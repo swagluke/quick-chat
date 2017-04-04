@@ -1,4 +1,20 @@
-<md-toolbar color="primary">
-  Quick Chart
-</md-toolbar>
-<router-outlet></router-outlet>
+<md-sidenav-container>
+  <md-sidenav #sidenav color="primary">
+    <md-toolbar>
+      Options
+    </md-toolbar>
+    <md-nav-list>
+      <a md-list-item (click)="sidenav.toggle()" [routerLink]="['/']">All Posts</a>
+      <a md-list-item (click)="sidenav.toggle()" [routerLink]="['/myposts']">My Posts</a>
+      <hr>
+      <a md-list-item (click)="sidenav.toggle(); authService.signOut()">Sign Out</a>
+            
+    </md-nav-list>
+  </md-sidenav>
+  <md-toolbar color="primary">
+    <button *ngIf="authService.isSignedIn | async" md-icon-button (click)="sidenav.toggle()">
+      <md-icon>menu</md-icon>
+    </button> Quick Chart
+  </md-toolbar>
+  <router-outlet></router-outlet>
+</md-sidenav-container>
