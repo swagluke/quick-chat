@@ -20,5 +20,9 @@
     {{ name }}
     </span>
   </md-toolbar>
-  <router-outlet></router-outlet>
+  <div fxLayoutAlign="center center">
+    <div class="container" class.gt-xs="bigger-container" fxFlex fxFlex.md="960px" fxFlex.gt-md="1100px">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
 </md-sidenav-container>
