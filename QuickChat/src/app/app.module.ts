@@ -14,12 +14,18 @@ import { MaterialModule } from '@angular/material';
 import { MainComponent } from './+main/main.component';
 import { MypostsComponent } from './+myposts/myposts.component';
 import { SigninComponent } from './+signin/signin.component';
+import { CreatePostComponent } from './create-post/create-post.component';
+import { PostListComponent } from './post-list/post-list.component';
+import { PostComponent } from './post/post.component';
 @NgModule({
   declarations: [
     AppComponent,
     MainComponent,
     MypostsComponent,
-    SigninComponent
+    SigninComponent,
+    CreatePostComponent,
+    PostListComponent,
+    PostComponent,
   ],
   imports: [
     BrowserModule,
