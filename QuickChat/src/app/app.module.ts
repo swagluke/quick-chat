@@ -1,3 +1,4 @@
+import { PostService } from './services/post.service';
 import { AuthGuardService } from './services/auth-guard.service';
 import { AuthService } from './services/auth.service';
 import { BrowserModule } from '@angular/platform-browser';
@@ -38,7 +39,11 @@ import { PostComponent } from './post/post.component';
     AngularFireModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
   ],
-  providers: [AuthService, AuthGuardService],
+  providers: [
+    AuthService, 
+    AuthGuardService, 
+    PostService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

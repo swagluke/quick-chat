@@ -6,14 +6,16 @@ import { Router } from "@angular/router";
 @Injectable()
 export class AuthService {
   //private _isSignedIn = false;
-
+  private _currentUserUid: string;
   constructor(private afAuth: AngularFireAuth, private router: Router) {
     this.afAuth.subscribe((authState: FirebaseAuthState) => {
       if (authState) {
         console.log("You are signed in. All is good.");
+        this._currentUserUid = authState.uid;
         //this._isSignedIn = true;
       } else {
         console.log("Not signed in.");
+        this._currentUserUid = "";
         //this._isSignedIn = false;
       }
     });
@@ -44,6 +46,10 @@ export class AuthService {
     });
   }
 
+  get currentUserUid(): string {
+    return this._currentUserUid;
+  }
+  
   signInWithGoogle(): void {
     this.afAuth.login({
       provider: AuthProviders.Google,
