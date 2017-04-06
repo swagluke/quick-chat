@@ -18,6 +18,7 @@ import { SigninComponent } from './+signin/signin.component';
 import { CreatePostComponent } from './create-post/create-post.component';
 import { PostListComponent } from './post-list/post-list.component';
 import { PostComponent } from './post/post.component';
+import { ReversePipe } from './reverse.pipe';
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,6 +28,7 @@ import { PostComponent } from './post/post.component';
     CreatePostComponent,
     PostListComponent,
     PostComponent,
+    ReversePipe,
   ],
   imports: [
     BrowserModule,

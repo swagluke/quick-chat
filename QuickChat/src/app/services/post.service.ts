@@ -5,13 +5,16 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class PostService {
   readonly postsPath = "posts";
-  private postsStream: FirebaseListObservable<Post[]>;
+  private _postsStream: FirebaseListObservable<Post[]>;
 
   constructor(private af: AngularFire) { 
-    this.postsStream = this.af.database.list(this.postsPath);
+    this._postsStream = this.af.database.list(this.postsPath);
   }
 
+  get postStream(): FirebaseListObservable<Post[]>{
+    return this._postsStream;
+  }
   add(post: Post) {
-    this.postsStream.push(post);
+    this._postsStream.push(post);
   }
 }
