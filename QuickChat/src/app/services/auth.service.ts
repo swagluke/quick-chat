@@ -26,6 +26,15 @@ export class AuthService {
     //return this._isSignedIn;
   }
 
+  get displayNameStream(): Observable<string> {
+    return this.afAuth.map<FirebaseAuthState, string>((authState: FirebaseAuthState) => {
+      if (authState && authState.google) {
+        return authState.google.displayName;
+      }
+      return null;
+    });
+  }
+
   signInWithGoogle(): void {
     this.afAuth.login({
       provider: AuthProviders.Google,

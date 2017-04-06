@@ -8,13 +8,17 @@
       <a md-list-item (click)="sidenav.toggle()" [routerLink]="['/myposts']">My Posts</a>
       <hr>
       <a md-list-item (click)="sidenav.toggle(); authService.signOut()">Sign Out</a>
-            
+
     </md-nav-list>
   </md-sidenav>
   <md-toolbar color="primary">
     <button *ngIf="authService.isSignedInStream | async" md-icon-button (click)="sidenav.toggle()">
       <md-icon>menu</md-icon>
     </button> Quick Chart
+    <span fxFlex></span>
+    <span *ngIf="(authService.displayNameStream | async) as name">
+    {{ name }}
+    </span>
   </md-toolbar>
   <router-outlet></router-outlet>
 </md-sidenav-container>
