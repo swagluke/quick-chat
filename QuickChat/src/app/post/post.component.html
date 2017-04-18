@@ -1,8 +1,5 @@
 <div class="post" fxLayout="row" fxLayoutAlign="none stretch">
-
-
-
-  <img *ngIf="post.photoUrl as photoUrl;else missingPhotoTemplate" [src]="photoUrl" alt="Google profile photo">
+  <img *ngIf="post.author.photoUrl as photoUrl;else missingPhotoTemplate" [src]="photoUrl" alt="Google profile photo">
   <template #missingPhotoTemplate>
     <img src="assets/images/missing_photo.png" alt="Photo missing">
   </template>
