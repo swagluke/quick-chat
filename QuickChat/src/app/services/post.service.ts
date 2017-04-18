@@ -11,7 +11,7 @@ export class PostService {
     this._postsStream = this.af.database.list(this.postsPath);
   }
 
-  get postStream(): FirebaseListObservable<Post[]>{
+  get postsStream(): FirebaseListObservable<Post[]>{
     return this._postsStream;
   }
   add(post: Post) {

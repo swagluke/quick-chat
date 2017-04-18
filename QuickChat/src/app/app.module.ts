@@ -1,3 +1,4 @@
+import { AuthorService } from './services/author.service';
 import { PostService } from './services/post.service';
 import { AuthGuardService } from './services/auth-guard.service';
 import { AuthService } from './services/auth.service';
@@ -44,7 +45,8 @@ import { ReversePipe } from './reverse.pipe';
   providers: [
     AuthService, 
     AuthGuardService, 
-    PostService
+    PostService,
+    AuthorService,
   ],
   bootstrap: [AppComponent]
 })
