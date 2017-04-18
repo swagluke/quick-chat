@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
 import { Post, PostWithAuthor } from '../models/post.model';
 import { Injectable } from '@angular/core';
-
+import * as firebase from "firebase";
 @Injectable()
 export class PostService {
   readonly postsPath = "posts";
@@ -35,5 +35,6 @@ export class PostService {
   add(post: Post) {
     // this._postsStream.push(post);
     console.log("TODO: push the post using the standard Firebase JS API");
+    firebase.database().ref().child(this.postsPath).push(post);
   }
 }
