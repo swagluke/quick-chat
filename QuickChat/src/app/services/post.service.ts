@@ -1,3 +1,4 @@
+import { AuthService } from './auth.service';
 import { Author } from '../models/author.model';
 import { AuthorService } from './author.service';
 import { Observable, Subject, BehaviorSubject } from 'rxjs';
@@ -5,27 +6,46 @@ import { AngularFire, FirebaseListObservable } from 'angularfire2';
 import { Post, PostWithAuthor } from '../models/post.model';
 import { Injectable } from '@angular/core';
 import * as firebase from "firebase";
+import { Query } from "angularfire2/interfaces";
 @Injectable()
 export class PostService {
   readonly postsPath = "posts";
-  readonly postBatchSize = 5;
+  readonly postBatchSize = 20;
   private postIncrementStream: Subject<number>;
+  private isMyPostsPageStream: Subject<boolean>;
   public postsWithAuthorStream: Observable<PostWithAuthor[]>;
   public hasMorePosts = true;
-
-  constructor(private af: AngularFire, private authorService: AuthorService) {
+  public hideLoadMoreButton = false;
+  constructor(private af: AngularFire, private authorService: AuthorService, private authService: AuthService) {
 
     this.postIncrementStream = new BehaviorSubject<number>(this.postBatchSize);
+    this.isMyPostsPageStream = new BehaviorSubject<boolean>(false);
+    
     const numPostsStream: Observable<number> = this.postIncrementStream.scan(
       (previousTotal: number, currentValue: number) => {
         return previousTotal + currentValue;
       });
 
-    const postsStream = numPostsStream.switchMap<number, Post[]>((numPosts: number) => {
-      return this.af.database.list(this.postsPath, {
-        query: {
-          limitToLast: numPosts,
+    const queryParameterStream: Observable<Query> = Observable.combineLatest<Query>(
+      this.isMyPostsPageStream,
+      numPostsStream,
+      (isMyPostsPage: boolean, numPosts: number) => {
+        if (isMyPostsPage) {
+          return {
+            orderByChild: 'authorKey',
+            equalTo: this.authService.currentUserUid
+          }
+        } else {
+          return {
+            limitToLast: numPosts
+          }
         }
+      }
+    );
+
+    const postsStream: Observable<Post[]> = queryParameterStream.switchMap<Query, Post[]>((queryParams: Query) => {
+      return this.af.database.list(this.postsPath, {
+        query: queryParams
       })
     });
 
@@ -73,6 +93,11 @@ export class PostService {
 
   displayMorePosts(): void {
     this.postIncrementStream.next(this.postBatchSize);
+  }
+
+  showOnlyMyPosts(isMyPostsPage: boolean): void {
+    this.isMyPostsPageStream.next(isMyPostsPage);
+    this.hideLoadMoreButton = isMyPostsPage;
   }
 
   remove(postKeyToRemove: string): void {

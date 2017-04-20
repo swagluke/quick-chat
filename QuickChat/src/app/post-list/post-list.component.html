@@ -4,6 +4,6 @@
     <hr>
   </div>
   <div fxLayoutAligh="end center">
-    <button *ngIf="postService.hasMorePosts" md-raised-button color="primary" (click)="postService.displayMorePosts()">Lost more posts</button>
+    <button *ngIf="postService.hasMorePosts && !postService.hideLoadMoreButton" md-raised-button color="primary" (click)="postService.displayMorePosts()">Lost more posts</button>
   </div>
 </md-card>

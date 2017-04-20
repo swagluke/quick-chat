@@ -1,3 +1,4 @@
+import { PostService } from './../services/post.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainComponent implements OnInit {
 
-  constructor() { }
+  constructor(private PostService: PostService) { }
 
   ngOnInit() {
+    this.PostService.showOnlyMyPosts(false);
   }
 
 }
