@@ -11,12 +11,12 @@
     <button id="google-button" md-button (click)="authService.signInWithGoogle()"></button>
   </md-card>
 
-  <template #alreadySignedInTemplate>
+  <ng-template #alreadySignedInTemplate>
     <md-card fxLayout="column" fxLayoutAlign="none center">
       <md-card-title>
         Signed in as {{authService.displayNameStream | async}}
       </md-card-title>
       <button md-raised-button (click)="authService.signOut()">Sign Out</button>
     </md-card>
-  </template>
+  </ng-template>
 </div>
