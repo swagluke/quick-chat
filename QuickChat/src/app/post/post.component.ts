@@ -20,10 +20,10 @@ export class PostComponent implements OnInit {
 
   @Input() post: PostWithAuthor;
   public editingMode: EditMode = EditMode.NoEditable;
-
+  public updatedPostBody: string;
   constructor(private authService: AuthService,
-   private postService: PostService,
-   public snackBar: MdSnackBar) { }
+  private postService: PostService,
+  public snackBar: MdSnackBar) { }
 
   ngOnInit() {
     if (this.post.authorKey == this.authService.currentUserUid) {
@@ -32,6 +32,7 @@ export class PostComponent implements OnInit {
   }
 
   enableEditing(): void {
+    this.updatedPostBody = this.post.postBody;
     this.editingMode = EditMode.Editing;
   }
 
@@ -55,6 +56,13 @@ export class PostComponent implements OnInit {
 
   saveEdit(): void {
     // Update the posts to the new value
+    const updatedPost = new Post();
+    updatedPost.postBody = this.updatedPostBody;
+    updatedPost.authorKey = this.post.authorKey;
+    this.postService.update(this.post.$key, updatedPost);
+    this.snackBar.open("Post updated", "", {
+      duration: 3000,
+    });
     this.editingMode = EditMode.DisplayEditButton;
   }
 

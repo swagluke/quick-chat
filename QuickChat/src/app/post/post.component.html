@@ -6,7 +6,13 @@
 
   <div fxFlex fxLayout="column">
     <div fxFlex class="author-name">{{post.author.displayName}}</div>
-    <div fxFlex class="post-body">{{post.postBody}} </div>
+    <div fxFlex *ngIf="editingMode!=2;else editPostTemplate" class="post-body">{{post.postBody}} </div>
+    <ng-template #editPostTemplate>
+      <md-input-container dividerColor="accent">
+        <input type="text" mdInput placeholder="Edit your post" 
+        [(ngModel)]="updatedPostBody" name="updatedPostBody">
+      </md-input-container>
+    </ng-template>
   </div>
 
   <div *ngIf="editingMode==1">
